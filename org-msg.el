@@ -1121,10 +1121,11 @@ a html mime part, it returns t, nil otherwise."
 
 (defun org-msg-article-htmlp-mu4e ()
   (let ((msg mu4e-compose-parent-message))
-    (with-temp-buffer
-      (insert-file-contents-literally
-       (mu4e-message-readable-path msg) nil nil nil t)
-      (org-msg-article-htmlp))))
+    (when msg
+      (with-temp-buffer
+	(insert-file-contents-literally
+	 (mu4e-message-readable-path msg) nil nil nil t)
+	(org-msg-article-htmlp)))))
 
 (defun org-msg-article-htmlp-notmuch ()
   "Return t if the current notmuch article is an HTML article."
